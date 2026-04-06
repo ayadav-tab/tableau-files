@@ -8,11 +8,16 @@
 <h3>Custom Extension</h3>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    Tableau.extensions.initializeAsync().then(function () {
-        console.log("Extension initialized");
+(function () {
+  $(document).ready(function () {
+    tableau.extensions.initializeAsync().then(function () {
+     console.log('Started...');
+    }, function (err) {
+      // Something went wrong in initialization.
+      console.log('Error while Initializing: ' + err.toString());
     });
-});
+  });
+})();
 </script>
 
 </body>
