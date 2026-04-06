@@ -6,7 +6,7 @@
 
     worksheet.getSummaryDataAsync().then(function (data) {
         let html = "<table><tr>";
-
+        console.log(data);
         data.columns.forEach(col => {
             html += "<th>" + col.fieldName + "</th>";
         });
