@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://tableau.github.io/extensions-api/lib/tableau.extensions.1.latest.js"></script>
+  <script src="https://tableau.github.io/extensions-api/lib/tableau.extensions.1.latest.js"></script>
 </head>
 
 <body>
-<h3>My Extension</h3>
+<h3>Custom Extension</h3>
 
 <script>
-tableau.extensions.initializeAsync().then(function () {
-    console.log("Loaded");
+document.addEventListener("DOMContentLoaded", function () {
+    tableau.extensions.initializeAsync().then(function () {
+        console.log("Extension initialized");
+    });
 });
 </script>
 
