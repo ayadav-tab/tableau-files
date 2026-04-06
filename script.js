@@ -1,3 +1,3 @@
 $(document).ready(function () {
-alert('Running');
+console.log('Running');
 });
