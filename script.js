@@ -20,7 +20,7 @@
                 html += "<td>" + cell.formattedValue + "</td>";
             });
 
-            html += "<td class='link'><a href='https://www.google.com'>Click Here</a></td>";
+            html += "<td class='link'><a target='_blank' href='https://www.google.com'>Click Here</a></td>";
             html += "</tr>";
         });
 
