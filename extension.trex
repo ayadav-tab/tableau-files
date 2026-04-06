@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest manifest-version="1.0">
+  <dashboard-extension id="custom-table-extension">
+    <default-locale>en_US</default-locale>
+    <name>Custom HTML Table</name>
+    <description>Custom Table Extension</description>
+    <author name="Your Name"/>
+    <min-api-version>1.0</min-api-version>
+    
+    <source-location>
+      <url>http://localhost:8000/index.html</url>
+    </source-location>
+  </dashboard-extension>
+</manifest>

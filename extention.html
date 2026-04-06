@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom Table Extension</title>
+  <script src="https://unpkg.com/tableau-api"></script>
+  <style>
+    body {
+      font-family: Segoe UI;
+      padding: 10px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    .link {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Custom Table</h3>
+  <div id="tableContainer"></div>
+
+<script>
+tableau.extensions.initializeAsync().then(function () {
+    const dashboard = tableau.extensions.dashboardContent.dashboard;
+    const worksheet = dashboard.worksheets[0];
+
+    worksheet.getSummaryDataAsync().then(function (data) {
+        let html = "<table><tr>";
+
+        data.columns.forEach(col => {
+            html += "<th>" + col.fieldName + "</th>";
+        });
+
+        html += "<th>Link</th></tr>";
+
+        data.data.forEach(row => {
+            html += "<tr>";
+
+            row.forEach(cell => {
+                html += "<td>" + cell.formattedValue + "</td>";
+            });
+
+            html += "<td class='link' onclick='openLink()'>View</td>";
+            html += "</tr>";
+        });
+
+        html += "</table>";
+        document.getElementById("tableContainer").innerHTML = html;
+    });
+});
+
+function openLink(){
+   window.open("https://google.com");
+}
+</script>
+
+</body>
+</html>
