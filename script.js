@@ -77,7 +77,7 @@
             a.href = cell.value;                 // raw value for URL
             a.innerText = cell.formattedValue;  // formatted for display
             a.target = "_blank";
-
+            a.innerHTML='Click to View';
             td.appendChild(a);
 
             td.dataset.raw = cell.value;        // for sorting
