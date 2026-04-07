@@ -82,15 +82,8 @@
 
                 } else {
 
-                    // numeric formatting
-                    if (!isNaN(value)) {
-                        td.innerText = value;
-                        td.style.textAlign = "right";
-                        
-                    }
-                    else {
-                        td.innerText = value;
-                    }
+                     td.innerText = cell.formattedValue;   // use tableau format
+                     td.dataset.raw = cell.value;   
                 }
 
                 tr.appendChild(td);
