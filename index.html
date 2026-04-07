@@ -25,12 +25,41 @@
       cursor: pointer;
       text-decoration: underline;
     }
+    .table-container{
+    height:100vh;
+    overflow:auto;
+}
+
+table { 
+    border-collapse: collapse; 
+    width:100%;
+}
+
+th, td { 
+    border:1px solid #ddd; 
+    padding:6px; 
+}
+
+th { 
+    cursor:pointer; 
+    background:#f4f4f4;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+tr:hover { 
+    background:#f1f1f1; 
+}
+</style>
   </style>
 </head>
 <body>
+    <div class="table-container">
     <table id="dataTable">
         <thead></thead>
         <tbody></tbody>
     </table>
+</div>
 </body>
 </html>
