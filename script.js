@@ -1,5 +1,7 @@
 (function () {
   let worksheet;
+  let currentSortCol = -1;
+  let sortDirection = "asc";
   $(document).ready(function () {
      tableau.extensions.initializeAsync().then(function () {
 
@@ -40,8 +42,7 @@
         // Header
         const headerRow = document.createElement("tr");
 
-       let currentSortCol = -1;
-       let sortDirection = "asc";
+      
 
         columns.forEach((col, index) => {
 
