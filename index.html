@@ -41,19 +41,32 @@ th, td {
 
 th { 
     cursor:pointer; 
-    background:#f4f4f4;
+    background:#0a1157;
     position: sticky;
     top: 0;
     z-index: 2;
+    color: white;
+    font-weight: 400;
+    
 }
 
 tr:hover { 
     background:#f1f1f1; 
 }
 .sort-icon {
-    font-size: 10px;
-    margin-left: 6px;
-    opacity: 0.6;
+    margin-left:6px;
+    font-size:10px;
+}
+
+.sort-icon span {
+    display:block;
+    line-height:8px;
+    color:#bbb;
+}
+
+.sort-icon .active {
+    color:#000;
+    font-weight:bold;
 }
 
 th:hover .sort-icon {
