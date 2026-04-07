@@ -40,9 +40,17 @@
         // Header
         const headerRow = document.createElement("tr");
 
+       let currentSortCol = -1;
+       let sortDirection = "asc";
+
         columns.forEach((col, index) => {
-            let th = document.createElement("th");
-            th.innerText = col;
+
+          let th = document.createElement("th");
+
+            th.innerHTML = `
+                <span class="header-text">${col}</span>
+                <span class="sort-icon">⇅</span>
+            `;
 
             th.onclick = () => sortTable(index);
 
@@ -101,20 +109,50 @@
 // Sorting
 function sortTable(columnIndex) {
 
-    let table = document.getElementById("dataTable");
-    let rows = Array.from(table.rows).slice(1);
+    const table = document.getElementById("dataTable");
+    const rows = Array.from(table.rows).slice(1);
+
+    // toggle direction
+    if (currentSortCol === columnIndex) {
+        sortDirection = sortDirection === "asc" ? "desc" : "asc";
+    } else {
+        sortDirection = "asc";
+    }
+
+    currentSortCol = columnIndex;
 
     rows.sort((a, b) => {
 
-        let A = a.cells[columnIndex].innerText;
-        let B = b.cells[columnIndex].innerText;
+        let A = a.cells[columnIndex].dataset.raw || a.cells[columnIndex].innerText;
+        let B = b.cells[columnIndex].dataset.raw || b.cells[columnIndex].innerText;
 
-        return A.localeCompare(B, undefined, {numeric: true});
+        if (!isNaN(A) && !isNaN(B)) {
+            return sortDirection === "asc" ? A - B : B - A;
+        }
+
+        return sortDirection === "asc"
+            ? A.localeCompare(B, undefined, {numeric:true})
+            : B.localeCompare(A, undefined, {numeric:true});
     });
 
-    rows.forEach(row => table.appendChild(row));
+    rows.forEach(row => table.tBodies[0].appendChild(row));
+
+    updateSortIcons();
 }
 
+function updateSortIcons() {
+
+    document.querySelectorAll("th").forEach((th, i) => {
+
+        let icon = th.querySelector(".sort-icon");
+
+        if (i === currentSortCol) {
+            icon.textContent = sortDirection === "asc" ? "▲" : "▼";
+        } else {
+            icon.textContent = "⇅";
+        }
+    });
+}
 
 
 // Selection Action back to Tableau
