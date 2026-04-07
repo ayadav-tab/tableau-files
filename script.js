@@ -50,10 +50,7 @@
 
             th.innerHTML = `
                 <span class="header-text">${col}</span>
-                <span class="sort-icon">
-                  <span class="up">▴</span>
-                  <span class="down">▾</span>
-                </span>
+                <span class="sort-icon">▲▼</span>
             `;
 
             th.onclick = () => sortTable(index);
@@ -146,20 +143,14 @@ function sortTable(columnIndex) {
 
 function updateSortIcons() {
 
-   document.querySelectorAll("th").forEach((th, i) => {
+    document.querySelectorAll("th").forEach((th, i) => {
 
-        let up = th.querySelector(".up");
-        let down = th.querySelector(".down");
-
-        up.classList.remove("active");
-        down.classList.remove("active");
+        let icon = th.querySelector(".sort-icon");
 
         if (i === currentSortCol) {
-            if (sortDirection === "asc") {
-                up.classList.add("active");
-            } else {
-                down.classList.add("active");
-            }
+            icon.textContent = sortDirection === "asc" ? "▲" : "▼";
+        } else {
+            icon.textContent = "▲▼";
         }
     });
 }
