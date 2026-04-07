@@ -50,7 +50,7 @@
 
             th.innerHTML = `
                 <span class="header-text">${col}</span>
-                <span class="sort-icon">▲▼</span>
+                <span class="sort-icon">⇅</span>
             `;
 
             th.onclick = () => sortTable(index);
@@ -150,7 +150,7 @@ function updateSortIcons() {
         if (i === currentSortCol) {
             icon.textContent = sortDirection === "asc" ? "▲" : "▼";
         } else {
-            icon.textContent = "▲▼";
+            icon.textContent = "⇅";
         }
     });
 }
