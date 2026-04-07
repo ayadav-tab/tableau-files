@@ -63,38 +63,40 @@
         // Rows
         sumdata.data.forEach(row => {
 
-            let tr = document.createElement("tr");
+    let tr = document.createElement("tr");
 
-            row.forEach((cell, i) => {
+    row.forEach((cell, i) => {
 
-                let td = document.createElement("td");
+        let td = document.createElement("td");
 
-                let value = cell.formattedValue;
+        // detect hyperlink column
+        if (columns[i].toLowerCase().includes("link")) {
 
-                // detect hyperlink column
-                if (columns[i].toLowerCase().includes("link")) {
+            let a = document.createElement("a");
 
-                    let a = document.createElement("a");
-                    a.href = value;
-                    a.innerText = value;
-                    a.target = "_blank";
-                    td.appendChild(a);
+            a.href = cell.value;                 // raw value for URL
+            a.innerText = cell.formattedValue;  // formatted for display
+            a.target = "_blank";
 
-                } else {
+            td.appendChild(a);
 
-                     td.innerText = cell.formattedValue;   // use tableau format
-                     td.dataset.raw = cell.value;   
-                }
+            td.dataset.raw = cell.value;        // for sorting
 
-                tr.appendChild(td);
-            });
+        } else {
 
-            // Selection action
-            tr.onclick = () => selectMarks(row);
+            td.innerText = cell.formattedValue; // keep tableau formatting
+            td.dataset.raw = cell.value;        // raw for sorting
+        }
 
-            tbody.appendChild(tr);
+        tr.appendChild(td);
+    });
 
-        });
+    // Selection action
+    tr.onclick = () => selectMarks(row);
+
+    tbody.appendChild(tr);
+
+});
 
     });
 }
