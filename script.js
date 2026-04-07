@@ -75,8 +75,9 @@
 
                     // numeric formatting
                     if (!isNaN(value)) {
-                        td.innerText = Number(value).toLocaleString();
+                        td.innerText = value;
                         td.style.textAlign = "right";
+                        
                     }
                     else {
                         td.innerText = value;
