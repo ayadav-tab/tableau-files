@@ -84,7 +84,7 @@
 
         } else {
 
-            td.innerText = cell.formattedValue; // keep tableau formatting
+            td.innerHTML = cell.formattedValue; // keep tableau formatting
             td.dataset.raw = cell.value;        // raw for sorting
         }
 
