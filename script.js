@@ -2,11 +2,12 @@
   let worksheet;
   let currentSortCol = -1;
   let sortDirection = "asc";
+  
   $(document).ready(function () {
      tableau.extensions.initializeAsync().then(function () {
 
         worksheet =
-            tableau.extensions.dashboardContent.dashboard.worksheets[0];
+            loadSelectedSheet();
 
         loadData();
 
@@ -19,6 +20,10 @@
             tableau.TableauEventType.SettingsChanged,
             loadData
         );
+        tableau.extensions.settings.addEventListener(
+    tableau.TableauEventType.SettingsChanged,
+    loadSelectedSheet
+);
 
     },function (err) {
       // Something went wrong in initialization.
@@ -26,6 +31,15 @@
     });
   });
 
+function loadSelectedSheet() {
+
+    const sheetName = tableau.extensions.settings.get("worksheet");
+
+    worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
+        .find(ws => ws.name === sheetName);
+
+    loadData();
+}
 
   function loadData() {
 
