@@ -6,7 +6,7 @@ $(document).ready(function () {
 
         const dashboard = tableau.extensions.dashboardContent.dashboard;
         const worksheets = dashboard.worksheets;
-        alert(dashboard.name)
+       // alert(dashboard.name)
         const dropdown = document.getElementById("sheetDropdown");
 
         dropdown.innerHTML = ""; // clear first
