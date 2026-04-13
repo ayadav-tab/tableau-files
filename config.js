@@ -4,18 +4,21 @@ $(document).ready(function () {
 
     tableau.extensions.initializeDialogAsync().then(() => {
 
-        worksheets = tableau.extensions.dashboardContent.dashboard.worksheets;
+        const dashboard = tableau.extensions.dashboardContent.dashboard;
+        const worksheets = dashboard.worksheets;
 
-        let dropdown = document.getElementById("sheetDropdown");
+        const dropdown = document.getElementById("sheetDropdown");
+
+        dropdown.innerHTML = ""; // clear first
 
         worksheets.forEach(ws => {
-            let opt = document.createElement("option");
-            opt.value = ws.name;
-            opt.text = ws.name;
-            dropdown.appendChild(opt);
+            let option = document.createElement("option");
+            option.value = ws.name;
+            option.text = ws.name;
+            dropdown.appendChild(option);
         });
 
-        document.getElementById("save").onclick = saveSettings;
+        console.log("Worksheets:", worksheets.map(w => w.name)); // debug
 
     });
 
