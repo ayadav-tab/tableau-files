@@ -5,7 +5,10 @@
   
   $(document).ready(function () {
 
-document.getElementById("configure").addEventListener("click", openConfig);
+
+
+     tableau.extensions.initializeAsync().then(function () {
+        document.getElementById("configure").addEventListener("click", openConfig);
 
 function openConfig() {
     tableau.extensions.ui.displayDialogAsync(
@@ -14,9 +17,6 @@ function openConfig() {
         { height: 300, width: 400 }
     );
 }
-
-     tableau.extensions.initializeAsync().then(function () {
-
         worksheet =
             loadSelectedSheet();
 
