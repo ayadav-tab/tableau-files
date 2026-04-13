@@ -20,7 +20,7 @@
         }
        
 
-        loadData();
+        //loadData();
 
         worksheet.addEventListener(
             tableau.TableauEventType.FilterChanged,
