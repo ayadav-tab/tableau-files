@@ -44,13 +44,24 @@
   });
 
 function loadSelectedSheet() {
-    $('#lbllog1').innerHTML+='</br>'+'Selected Sheet';
-    const sheetName = tableau.extensions.settings.get("worksheet");
+     const sheetName = tableau.extensions.settings.get("worksheet");
+
+    if (!sheetName) {
+        console.log("No sheet selected yet");
+        return;
+    }
 
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
         .find(ws => ws.name === sheetName);
-        $('#lbllog1').innerHTML +='</br>'+sheetName;
-    loadData();
+
+    if (!worksheet) {
+        console.error("Worksheet not found:", sheetName);
+        return;
+    }
+
+    console.log("Loaded worksheet:", sheetName);
+
+    loadData();  // 👈 call your data function
 }
 
 
