@@ -18,8 +18,7 @@
                 { height: 300, width: 400 }
             );
         }
-        worksheet =
-            loadSelectedSheet();
+       
 
         loadData();
 
