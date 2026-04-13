@@ -39,21 +39,21 @@ function loadSelectedSheet() {
      const sheetName = tableau.extensions.settings.get("worksheet");
 
     if (!sheetName) {
-        console.log("No sheet selected yet");
+
+        document.body.innerHTML = `
+            <div style="padding:20px; font-family:Arial;">
+                <h3>Please configure the extension</h3>
+                <p>Click the menu (⋯) → Configure</p>
+            </div>
+        `;
+
         return;
     }
 
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
         .find(ws => ws.name === sheetName);
 
-    if (!worksheet) {
-        console.error("Worksheet not found:", sheetName);
-        return;
-    }
-
-    console.log("Loaded worksheet:", sheetName);
-
-    loadData();  // 👈 call your data function
+    loadData();
 }
 
 
