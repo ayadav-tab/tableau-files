@@ -44,12 +44,12 @@
   });
 
 function loadSelectedSheet() {
-
+    $('#lbllog1').innerHTML+='</br>'+'Selected Sheet';
     const sheetName = tableau.extensions.settings.get("worksheet");
 
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
         .find(ws => ws.name === sheetName);
-
+        $('#lbllog1').innerHTML +='</br>'+sheetName;
     loadData();
 }
 
