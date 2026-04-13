@@ -8,15 +8,16 @@
 
 
      tableau.extensions.initializeAsync().then(function () {
+         loadSelectedSheet(); 
         document.getElementById("configure").addEventListener("click", openConfig);
 
-function openConfig() {
-    tableau.extensions.ui.displayDialogAsync(
-        "config.html",
-        "",
-        { height: 300, width: 400 }
-    );
-}
+        function openConfig() {
+            tableau.extensions.ui.displayDialogAsync(
+                "config.html",
+                "",
+                { height: 300, width: 400 }
+            );
+        }
         worksheet =
             loadSelectedSheet();
 
