@@ -27,14 +27,14 @@
             loadData
         );
 
-        tableau.extensions.settings.addEventListener(
+        /*tableau.extensions.settings.addEventListener(
             tableau.TableauEventType.SettingsChanged,
             loadData
-        );
+        );*/
         tableau.extensions.settings.addEventListener(
-    tableau.TableauEventType.SettingsChanged,
-    loadSelectedSheet
-);
+            tableau.TableauEventType.SettingsChanged,
+            loadSelectedSheet
+        );
 
     },function (err) {
       // Something went wrong in initialization.
