@@ -5,6 +5,12 @@
   
   $(document).ready(function () {
 
+
+
+     tableau.extensions.initializeAsync().then(function () {
+         loadSelectedSheet(); 
+        document.getElementById("configure").addEventListener("click", openConfig);
+
         function openConfig() {
             tableau.extensions.ui.displayDialogAsync(
                 "config.html",
@@ -12,9 +18,10 @@
                 { height: 300, width: 400 }
             );
         }
+       
 
-      tableau.extensions.initializeAsync({ configure: openConfig }).then(() => {
-         loadSelectedSheet(); 
+        //loadData();
+
         worksheet.addEventListener(
             tableau.TableauEventType.FilterChanged,
             loadData
@@ -27,6 +34,7 @@
         tableau.extensions.settings.addEventListener(
             tableau.TableauEventType.SettingsChanged,
             loadSelectedSheet
+           
         );
 
     },function (err) {
@@ -39,21 +47,21 @@ function loadSelectedSheet() {
      const sheetName = tableau.extensions.settings.get("worksheet");
 
     if (!sheetName) {
-
-        document.body.innerHTML = `
-            <div style="padding:20px; font-family:Arial;">
-                <h3>Please configure the extension</h3>
-                <p>Click the menu (⋯) → Configure</p>
-            </div>
-        `;
-
+        console.log("No sheet selected yet");
         return;
     }
 
     worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
         .find(ws => ws.name === sheetName);
 
-    loadData();
+    if (!worksheet) {
+        console.error("Worksheet not found:", sheetName);
+        return;
+    }
+
+    console.log("Loaded worksheet:", sheetName);
+    if (sheetName) { $('#configure').hide();}
+    loadData();  // 👈 call your data function
 }
 
 
