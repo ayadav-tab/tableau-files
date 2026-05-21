@@ -73,14 +73,31 @@ tr:hover {
 th:hover .sort-icon {
     opacity: 1;
 }
+#excelexport {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+#excelexport img {
+    width: 22px;
+    height: 22px;
+}
+
+#excelexport:hover {
+    background: #f3f3f3;
+}
 
 </style>
   </style>
 </head>
 <body>
   <button id="configure">Configure</button>
-  <button id="excelexport">
-    Export Excel
+  
+<button style="float: right;" id="excelexport" title="Export to Excel">
+    <img src="Images/excel.png" alt="Excel Export">
 </button>
   <Label id="lbllog1"></Label>
     <div class="table-container">
