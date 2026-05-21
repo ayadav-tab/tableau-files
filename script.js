@@ -111,7 +111,7 @@
             console.log("No sheet selected yet");
             return;
         }
-
+        $('.sheetname').textContent=sheetName;
         worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
             .find(ws => ws.name === sheetName);
 
@@ -148,7 +148,11 @@
             columns.forEach((col, index) => {
 
                 let th = document.createElement("th");
-
+                IF (col.contains('AGG(')||col.contains('SUM(')||col.contains('MAX(')||col.contains('MIN(')||col.contains('COUNT(')||col.contains('COUNTD('))
+                {
+                    col=col.Replace('AGG(','').Replace('SUM(','').Replace('MAX(','').Replace('MIN(','').Replace('COUNT(','').Replace('COUNTD(','');
+                    col=col.substring(0,col.length-2)
+                }
                 th.innerHTML = `${col}
                
                 <span class="sort-icon">⇅</span>
