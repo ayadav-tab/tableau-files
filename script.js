@@ -16,6 +16,7 @@
 
         tableau.extensions.initializeAsync().then(function () {
             loadSelectedSheet();
+            listenToParameters();
             document.getElementById("configure").addEventListener("click", openConfig);
 
             function openConfig() {
@@ -323,4 +324,28 @@
         );
 
     }
+
+    function listenToParameters()
+    {
+        tableau.extensions.dashboardContent.dashboard
+    .getParametersAsync()
+    .then(parameters => {
+
+        parameters.forEach(parameter => {
+
+            parameter.addEventListener(
+                tableau.TableauEventType.ParameterChanged,
+                onParameterChange
+            );
+
+        });
+
+    });
+    }
+    async function onParameterChange(event) {
+
+    const parameter = await event.getParameterAsync();
+    await loadData();
+    
+}
 })();
