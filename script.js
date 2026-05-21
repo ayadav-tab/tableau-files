@@ -41,6 +41,19 @@
             // Something went wrong in initialization.
             console.log('Error while Initializing: ' + err.toString());
         });
+
+        function exportTableToExcel() {
+
+            const table = document.getElementById("dataTable");
+
+            // Convert HTML table to workbook
+            const workbook = XLSX.utils.table_to_book(table, {
+                sheet: "Table Data"
+            });
+
+            // Download Excel
+            XLSX.writeFile(workbook, "TableauData.xlsx");
+        }
     });
 
     function loadSelectedSheet() {
@@ -62,18 +75,7 @@
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
         loadData();  // 👈 call your data function
-        function exportTableToExcel() {
-
-            const table = document.getElementById("dataTable");
-
-            // Convert HTML table to workbook
-            const workbook = XLSX.utils.table_to_book(table, {
-                sheet: "Table Data"
-            });
-
-            // Download Excel
-            XLSX.writeFile(workbook, "TableauData.xlsx");
-        }
+        
     }
 
 
