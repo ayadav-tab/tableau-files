@@ -2,6 +2,13 @@
     let worksheet;
     let currentSortCol = -1;
     let sortDirection = "asc";
+    let today = new Date();
+
+   let cfy =
+    (today.getMonth() + 1) <= 7
+        ? today.getFullYear()
+        : today.getFullYear() + 1;
+    
 
     $(document).ready(function () {
 
@@ -136,8 +143,10 @@
 
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
+        $('#loader').show();
         await loadData();  // 👈 call your data function
         $("#excelexport").click(function () { exportTableToExcel(sheetName) });
+         $('#loader').hide();
     }
 
 
@@ -165,6 +174,18 @@
                 if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
                     col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
                     col = col.substring(0, col.length - 1)
+                }
+                if (col.includes('cfy⇅'))
+                {
+                    const columnsplit=col.slice('⇅');
+                    //FY⇅cfy⇅-⇅1⇅ Balance
+                    if (columnsplit[2]==='-')
+                    {
+                        col=columnsplit[0]+(cfy-columnsplit[3])+columnsplit[4];
+                    }else
+                    {
+                         col=columnsplit[0]+(cfy+(columnsplit[3]*1))+columnsplit[4];
+                    }
                 }
                 th.innerHTML = `${col}
                
