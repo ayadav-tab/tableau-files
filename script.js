@@ -157,7 +157,8 @@
         document.getElementById("loader").style.display = "flex";
         worksheet.getSummaryDataAsync().then(function (sumdata) {
 
-            const columns = sumdata.columns.map(c => c.fieldName);
+           // const columns = sumdata.columns.map(c => c.fieldName);
+            const columns = sumdata.columns;
             const table = document.getElementById("dataTable");
             const thead = table.querySelector("thead");
             const tbody = table.querySelector("tbody");
