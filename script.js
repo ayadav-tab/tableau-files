@@ -149,8 +149,8 @@
 
                 let th = document.createElement("th");
 
-                th.innerHTML = `
-                <span class="header-text">${col}</span>
+                th.innerHTML = `${col}
+               
                 <span class="sort-icon">⇅</span>
             `;
 
