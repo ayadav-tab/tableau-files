@@ -148,7 +148,7 @@
             columns.forEach((col, index) => {
 
                 let th = document.createElement("th");
-                if (col.contains('AGG(')||col.contains('SUM(')||col.contains('MAX(')||col.contains('MIN(')||col.contains('COUNT(')||col.contains('COUNTD('))
+                if (col.includes('AGG(')||col.includes('SUM(')||col.includes('MAX(')||col.includes('MIN(')||col.includes('COUNT(')||col.includes('COUNTD('))
                 {
                     col=col.Replace('AGG(','').Replace('SUM(','').Replace('MAX(','').Replace('MIN(','').Replace('COUNT(','').Replace('COUNTD(','');
                     col=col.substring(0,col.length-2)
