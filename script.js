@@ -143,10 +143,10 @@
 
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
-        $('#loader').show();
+        document.getElementById("loader").style.display = "flex";
         await loadData();  // 👈 call your data function
         $("#excelexport").click(function () { exportTableToExcel(sheetName) });
-         $('#loader').hide();
+        document.getElementById("loader").style.display = "none";
     }
 
 
