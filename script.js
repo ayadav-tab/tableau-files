@@ -57,7 +57,7 @@
             XLSX.writeFile(workbook, sheetname+".xlsx");
         }
 
-    function loadSelectedSheet() {
+  async  function loadSelectedSheet() {
         const sheetName = tableau.extensions.settings.get("worksheet");
 
         if (!sheetName) {
@@ -81,7 +81,7 @@
 
 
 
-   async function  loadData() {
+    function  loadData() {
 
         worksheet.getSummaryDataAsync().then(function (sumdata) {
 
