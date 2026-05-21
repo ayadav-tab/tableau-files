@@ -170,7 +170,7 @@
             const headerRow = document.createElement("tr");
 
 
-
+            console.log(columns);
             columns.forEach((_col, index) => {
                 let col=_col._fieldName;
                 let th = document.createElement("th");
