@@ -143,16 +143,17 @@
 
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
-        document.getElementById("loader").style.display = "flex";
+       
         await loadData();  // 👈 call your data function
         $("#excelexport").click(function () { exportTableToExcel(sheetName) });
-        document.getElementById("loader").style.display = "none";
+       
     }
 
 
 
-    function loadData() {
-
+  async  function loadData() {
+    try{
+        document.getElementById("loader").style.display = "flex";
         worksheet.getSummaryDataAsync().then(function (sumdata) {
 
             const columns = sumdata.columns.map(c => c.fieldName);
@@ -238,6 +239,19 @@
             });
 
         });
+         await new Promise(resolve =>
+            requestAnimationFrame(resolve)
+        );
+    }catch (err) {
+
+        console.error(err);
+
+    }
+    finally {
+
+         document.getElementById("loader").style.display = "none";
+
+    }
     }
 
 
