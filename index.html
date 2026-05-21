@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="tableau.extensions.1.latest.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-   <script src="script.js"></script>
-    <style>
-      @font-face {
-    font-family: 'Noto Sans';
-    src: url('./fonts/NotoSans-Regular.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-}
+  <script src="script.js"></script>
+  <style>
+    @font-face {
+      font-family: 'Noto Sans';
+      src: url('./fonts/NotoSans-Regular.ttf') format('truetype');
+      font-weight: 300;
+      font-style: normal;
+    }
+
     body {
-     
+
       padding: 10px;
     }
 
@@ -21,11 +23,12 @@
       border-collapse: collapse;
       min-width: 100%;
       width: max-content;
-       font-family: 'Noto Sans';
-       font-size: 13px;
+      font-family: 'Noto Sans';
+      font-size: 13px;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid #ddd;
       padding: 8px;
     }
@@ -35,76 +38,85 @@
       cursor: pointer;
       text-decoration: underline;
     }
-    .table-container{
-    height:85vh;
-    overflow:auto;
-    overflow-x: auto;
-}
-tr{
-  color: #0a1157;
-}
+
+    .table-container {
+      height: 85vh;
+      overflow: auto;
+      overflow-x: auto;
+      width: 100%;
+    }
+
+    tr {
+      color: #0a1157;
+    }
 
 
-th, td { 
-    border:1px solid #ddd; 
-    padding:6px; 
-}
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 6px;
+    }
 
-th { 
-    cursor:pointer; 
-    background:#0a1157;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    color: white;
-    font-weight: 400;
-    
-}
+    th {
+      cursor: pointer;
+      background: #0a1157;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      color: white;
+      font-weight: 400;
 
-tr:hover { 
-    background:#f1f1f1; 
-}
-.sort-icon {
-    font-size: 10px;
-    margin-left: 6px;
-    opacity: 0.6;
-}
+    }
 
-th:hover .sort-icon {
-    opacity: 1;
-}
-#excelexport {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 6px;
-}
+    tr:hover {
+      background: #f1f1f1;
+    }
 
-#excelexport img {
-    width: 22px;
-    height: 22px;
-}
+    .sort-icon {
+      font-size: 10px;
+      margin-left: 6px;
+      opacity: 0.6;
+    }
 
-#excelexport:hover {
-    background: #f3f3f3;
-}
+    th:hover .sort-icon {
+      opacity: 1;
+    }
 
-</style>
+    #excelexport {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      padding-top: 0px !important;
+    }
+
+    #excelexport img {
+      width: 22px;
+      height: 22px;
+    }
+
+    #excelexport:hover {
+      background: #f3f3f3;
+    }
+  </style>
   </style>
 </head>
+
 <body>
-  <button id="configure">Configure</button>
-  
-<button style="float: right;" id="excelexport" title="Export to Excel">
-    <img src="Images/excel.png" alt="Excel Export">
-</button>
-  <Label id="lbllog1"></Label>
-    <div class="table-container">
+  <div>
+    <button id="configure">Configure</button>
+    <button style="float: right;" id="excelexport" title="Export to Excel">
+      <img src="Images/excel.png" alt="Excel Export">
+    </button>
+  </div>
+  <br>
+  <div class="table-container">
     <table id="dataTable">
-        <thead></thead>
-        <tbody></tbody>
+      <thead></thead>
+      <tbody></tbody>
     </table>
-</div>
+  </div>
 </body>
+
 </html>
