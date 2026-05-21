@@ -3,6 +3,7 @@
 <head>
    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="tableau.extensions.1.latest.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
    <script src="script.js"></script>
     <style>
       @font-face {
@@ -78,6 +79,9 @@ th:hover .sort-icon {
 </head>
 <body>
   <button id="configure">Configure</button>
+  <button onclick="exportTableToExcel()">
+    Export Excel
+</button>
   <Label id="lbllog1"></Label>
     <div class="table-container">
     <table id="dataTable">
