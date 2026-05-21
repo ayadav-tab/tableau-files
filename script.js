@@ -83,7 +83,21 @@
 
             tr.querySelectorAll("td").forEach(td => {
 
-                row.push(td.innerText.trim());
+                let link = td.querySelector("a");
+
+                if (link) {
+
+                    row.push({
+                        t: 's',
+                        v: link.innerText,
+                        l: { Target: link.href }
+                    });
+
+                } else {
+
+                    row.push(td.innerText.trim());
+
+                }
 
             });
 
@@ -111,7 +125,7 @@
             console.log("No sheet selected yet");
             return;
         }
-        $('.sheetname')[0].textContent=sheetName;
+        $('.sheetname')[0].textContent = sheetName;
         worksheet = tableau.extensions.dashboardContent.dashboard.worksheets
             .find(ws => ws.name === sheetName);
 
@@ -148,10 +162,9 @@
             columns.forEach((col, index) => {
 
                 let th = document.createElement("th");
-                if (col.includes('AGG(')||col.includes('SUM(')||col.includes('MAX(')||col.includes('MIN(')||col.includes('COUNT(')||col.includes('COUNTD('))
-                {
-                    col=col.replace('AGG(','').replace('SUM(','').replace('MAX(','').replace('MIN(','').replace('COUNT(','').replace('COUNTD(','');
-                    col=col.substring(0,col.length-1)
+                if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
+                    col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
+                    col = col.substring(0, col.length - 1)
                 }
                 th.innerHTML = `${col}
                
