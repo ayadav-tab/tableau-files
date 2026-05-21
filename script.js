@@ -42,7 +42,9 @@
             console.log('Error while Initializing: ' + err.toString());
         });
 
-        function exportTableToExcel() {
+      
+    });
+     function exportTableToExcel(sheetname) {
 
             const table = document.getElementById("dataTable");
 
@@ -52,9 +54,8 @@
             });
 
             // Download Excel
-            XLSX.writeFile(workbook, "TableauData.xlsx");
+            XLSX.writeFile(workbook, sheetname+".xlsx");
         }
-    });
 
     function loadSelectedSheet() {
         const sheetName = tableau.extensions.settings.get("worksheet");
@@ -75,7 +76,7 @@
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
         loadData();  // 👈 call your data function
-        
+        document.getElementById("excelexport").addEventListener("click", exportTableToExcel(sheetName));
     }
 
 
