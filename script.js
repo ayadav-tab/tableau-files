@@ -75,13 +75,13 @@
 
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
-        loadData();  // 👈 call your data function
-        document.getElementById("excelexport").addEventListener("click", exportTableToExcel(sheetName));
+        await loadData();  // 👈 call your data function
+        $("#excelexport").onClick(function(){exportTableToExcel(sheetName)} );
     }
 
 
 
-    function loadData() {
+   async function  loadData() {
 
         worksheet.getSummaryDataAsync().then(function (sumdata) {
 
