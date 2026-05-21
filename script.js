@@ -212,7 +212,7 @@
                     let td = document.createElement("td");
 
                     // detect hyperlink column
-                    if (columns[i].toLowerCase().includes("link")) {
+                    if (columns[i]._fieldName.toLowerCase().includes("link")) {
 
                         let a = document.createElement("a");
 
