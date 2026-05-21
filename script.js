@@ -150,7 +150,7 @@
                 let th = document.createElement("th");
                 if (col.includes('AGG(')||col.includes('SUM(')||col.includes('MAX(')||col.includes('MIN(')||col.includes('COUNT(')||col.includes('COUNTD('))
                 {
-                    col=col.Replace('AGG(','').Replace('SUM(','').Replace('MAX(','').Replace('MIN(','').Replace('COUNT(','').Replace('COUNTD(','');
+                    col=col.replace('AGG(','').replace('SUM(','').replace('MAX(','').replace('MIN(','').replace('COUNT(','').replace('COUNTD(','');
                     col=col.substring(0,col.length-2)
                 }
                 th.innerHTML = `${col}
