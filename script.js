@@ -145,11 +145,11 @@
         if (sheetName) { $('#configure').hide(); }
        
         await loadData();  // 👈 call your data function
-        $("#excelexport").click(function () { exportTableToExcel(sheetName) });
+        
        
     }
 
-
+    $("#excelexport").click(function () { exportTableToExcel(sheetName) });
 
   async  function loadData() {
     try{
