@@ -76,7 +76,7 @@
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
         await loadData();  // 👈 call your data function
-        $("#excelexport").onClick(function(){exportTableToExcel(sheetName)} );
+        $("#excelexport").click(function(){exportTableToExcel(sheetName)} );
     }
 
 
