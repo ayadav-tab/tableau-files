@@ -178,7 +178,7 @@
                 }
                 if (col.includes('cfy⇅'))
                 {
-                    const columnsplit=col.slice('⇅');
+                    const columnsplit=col.split('⇅');
                     //FY⇅cfy⇅-⇅1⇅ Balance
                     if (columnsplit[2]==='-')
                     {
