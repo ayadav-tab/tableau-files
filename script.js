@@ -171,8 +171,8 @@
 
 
 
-            columns.forEach((col, index) => {
-
+            columns.forEach((_col, index) => {
+                let col=_col._fieldName;
                 let th = document.createElement("th");
                 if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
                     col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
