@@ -42,22 +42,69 @@
             console.log('Error while Initializing: ' + err.toString());
         });
 
-      
+
     });
-     function exportTableToExcel(sheetname) {
+    function exportTableToExcel(sheetname) {
 
-            const table = document.getElementById("dataTable");
+        let data = [];
 
-            // Convert HTML table to workbook
-            const workbook = XLSX.utils.table_to_book(table, {
-                sheet: "Table Data"
+        // =========================
+        // CLEAN HEADERS
+        // =========================
+
+        let headers = [];
+
+        document.querySelectorAll("#dataTable thead th").forEach(th => {
+
+            // Get only text node (ignores span icon)
+            let headerText = "";
+
+            th.childNodes.forEach(node => {
+
+                if (node.nodeType === Node.TEXT_NODE) {
+                    headerText += node.textContent;
+                }
+
             });
 
-            // Download Excel
-            XLSX.writeFile(workbook, sheetname+".xlsx");
-        }
+            headers.push(headerText.trim());
 
-  async  function loadSelectedSheet() {
+        });
+
+        data.push(headers);
+
+        // =========================
+        // TABLE DATA
+        // =========================
+
+        document.querySelectorAll("#dataTable tbody tr").forEach(tr => {
+
+            let row = [];
+
+            tr.querySelectorAll("td").forEach(td => {
+
+                row.push(td.innerText.trim());
+
+            });
+
+            data.push(row);
+
+        });
+
+        // =========================
+        // CREATE EXCEL
+        // =========================
+
+        const ws = XLSX.utils.aoa_to_sheet(data);
+
+        const wb = XLSX.utils.book_new();
+
+        XLSX.utils.book_append_sheet(wb, ws, "Table Data");
+
+        XLSX.writeFile(wb, sheetname + ".xlsx");
+    }
+
+    async function loadSelectedSheet() {
         const sheetName = tableau.extensions.settings.get("worksheet");
 
         if (!sheetName) {
@@ -76,12 +123,12 @@
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
         await loadData();  // 👈 call your data function
-        $("#excelexport").click(function(){exportTableToExcel(sheetName)} );
+        $("#excelexport").click(function () { exportTableToExcel(sheetName) });
     }
 
 
 
-    function  loadData() {
+    function loadData() {
 
         worksheet.getSummaryDataAsync().then(function (sumdata) {
 
