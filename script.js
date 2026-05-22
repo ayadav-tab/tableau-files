@@ -4,11 +4,11 @@
     let sortDirection = "asc";
     let today = new Date();
 
-   let cfy =
-    (today.getMonth() + 1) <= 7
-        ? today.getFullYear()
-        : today.getFullYear() + 1;
-    
+    let cfy =
+        (today.getMonth() + 1) <= 7
+            ? today.getFullYear()
+            : today.getFullYear() + 1;
+
 
     $(document).ready(function () {
 
@@ -144,119 +144,130 @@
 
         console.log("Loaded worksheet:", sheetName);
         if (sheetName) { $('#configure').hide(); }
-       
+
         await loadData();  // 👈 call your data function
         $("#excelexport").click(function () { exportTableToExcel(sheetName) });
-       
+
     }
 
 
 
-  async  function loadData() {
-    try{
-        document.getElementById("loader").style.display = "flex";
-        worksheet.getSummaryDataAsync().then(function (sumdata) {
+    async function loadData() {
+        try {
+            document.getElementById("loader").style.display = "flex";
+            const columnorder = tableau.extensions.settings.get("columnorder")?.split(",");;
+            worksheet.getSummaryDataAsync().then(function (sumdata) {
 
-           // const columns = sumdata.columns.map(c => c.fieldName);
-            const columns = sumdata.columns;
-            const table = document.getElementById("dataTable");
-            const thead = table.querySelector("thead");
-            const tbody = table.querySelector("tbody");
+                // const columns = sumdata.columns.map(c => c.fieldName);
+                const columns = sumdata.columns;
+                const table = document.getElementById("dataTable");
+                const thead = table.querySelector("thead");
+                const tbody = table.querySelector("tbody");
 
-            thead.innerHTML = "";
-            tbody.innerHTML = "";
+                thead.innerHTML = "";
+                tbody.innerHTML = "";
 
-            // Header
-            const headerRow = document.createElement("tr");
+                // Header
+                const headerRow = document.createElement("tr");
 
+                const orderedColumns = columnorder.map(name =>
 
-            console.log(sumdata);
-            columns.forEach((_col, index) => {
-                let col=_col._fieldName;
-                let th = document.createElement("th");
-                if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
-                    col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
-                    col = col.substring(0, col.length - 1)
-                }
-                if (col.includes('cfy⇅'))
-                {
-                    const columnsplit=col.split('⇅');
-                    //FY⇅cfy⇅-⇅1⇅ Balance
-                    if (columnsplit[2]==='-')
-                    {
-                        col=columnsplit[0]+(cfy-columnsplit[3])+columnsplit[4];
-                    }else
-                    {
-                         col=columnsplit[0]+(cfy+(columnsplit[3]*1))+columnsplit[4];
+                    sumdata.columns.find(c => {
+                    let col = c.fieldName;
+                   
+                    if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
+                        col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
+                        col = col.substring(0, col.length - 1)
                     }
-                }
-                th.innerHTML = `${col}
+                    return col.trim() === name.trim();
+
+                    })
+
+                ).filter(Boolean);
+                orderedColumns.forEach((_col, index) => {
+                    let col = _col._fieldName;
+                    let th = document.createElement("th");
+                    
+                    if (col.includes('cfy⇅')) {
+                        const columnsplit = col.split('⇅');
+                        //FY⇅cfy⇅-⇅1⇅ Balance
+                        if (columnsplit[2] === '-') {
+                            col = columnsplit[0] + (cfy - columnsplit[3]) + columnsplit[4];
+                        } else {
+                            col = columnsplit[0] + (cfy + (columnsplit[3] * 1)) + columnsplit[4];
+                        }
+                    }
+                    th.innerHTML = `${col}
                
                 <span class="sort-icon">⇅</span>
             `;
 
-                th.onclick = () => sortTable(index);
+                    th.onclick = () => sortTable(index);
 
-                headerRow.appendChild(th);
-            });
-
-            thead.appendChild(headerRow);
-
-            // Rows
-            sumdata.data.forEach(row => {
-
-                let tr = document.createElement("tr");
-
-                row.forEach((cell, i) => {
-
-                    let td = document.createElement("td");
-
-                    // detect hyperlink column
-                    if (columns[i]._fieldName.toLowerCase().includes("link")) {
-
-                        let a = document.createElement("a");
-
-                        a.href = cell.value;                 // raw value for URL
-                        a.innerText = cell.formattedValue;  // formatted for display
-                        a.target = "_blank";
-                        a.innerHTML = 'Click to View';
-                        td.appendChild(a);
-
-                        td.dataset.raw = cell.value;        // for sorting
-
-                    } else {
-
-                        td.innerHTML = cell.formattedValue; // keep tableau formatting
-                        td.dataset.raw = cell.value;        // raw for sorting
-                    }
-
-                    tr.appendChild(td);
+                    headerRow.appendChild(th);
                 });
 
-                // Selection action
-                tr.onclick = () => selectMarks(row);
+                thead.appendChild(headerRow);
+                const columnIndexes = orderedColumns.map(col =>
+                    sumdata.columns.findIndex(c =>
+                     c._fieldName === col._fieldName
+                    )
+                );
+                // Rows
+                sumdata.data.forEach(row => {
+                    
+                    let tr = document.createElement("tr");
 
-                tbody.appendChild(tr);
+                     columnIndexes.forEach(i => {
+                        let cell=row[i];
+                        let td = document.createElement("td");
+
+                        // detect hyperlink column
+                        if (orderedColumns[i]._fieldName.toLowerCase().includes("link")) {
+
+                            let a = document.createElement("a");
+
+                            a.href = cell.value;                 // raw value for URL
+                            a.innerText = cell.formattedValue;  // formatted for display
+                            a.target = "_blank";
+                            a.innerHTML = 'Click to View';
+                            td.appendChild(a);
+
+                            td.dataset.raw = cell.value;        // for sorting
+
+                        } else {
+
+                            td.innerHTML = cell.formattedValue; // keep tableau formatting
+                            td.dataset.raw = cell.value;        // raw for sorting
+                        }
+
+                        tr.appendChild(td);
+                    });
+
+                    // Selection action
+                    tr.onclick = () => selectMarks(row);
+
+                    tbody.appendChild(tr);
+
+                });
 
             });
+            await new Promise(resolve =>
+                requestAnimationFrame(resolve)
+            );
+        } catch (err) {
 
-        });
-         await new Promise(resolve =>
-            requestAnimationFrame(resolve)
-        );
-    }catch (err) {
+            console.error(err);
 
-        console.error(err);
+        }
+        finally {
+            setTimeout(function () {
+                document.getElementById("loader").style.display = "none";
+            }, 5000)
 
-    }
-    finally {
-        setTimeout(function(){
-            document.getElementById("loader").style.display = "none";
-        },5000)
 
-        
 
-    }
+        }
     }
 
 
@@ -326,27 +337,26 @@
 
     }
 
-    function listenToParameters()
-    {
+    function listenToParameters() {
         tableau.extensions.dashboardContent.dashboard
-    .getParametersAsync()
-    .then(parameters => {
+            .getParametersAsync()
+            .then(parameters => {
 
-        parameters.forEach(parameter => {
+                parameters.forEach(parameter => {
 
-            parameter.addEventListener(
-                tableau.TableauEventType.ParameterChanged,
-                onParameterChange
-            );
+                    parameter.addEventListener(
+                        tableau.TableauEventType.ParameterChanged,
+                        onParameterChange
+                    );
 
-        });
+                });
 
-    });
+            });
     }
     async function onParameterChange(event) {
 
-    const parameter = await event.getParameterAsync();
-    await loadData();
-    
-}
+        const parameter = await event.getParameterAsync();
+        await loadData();
+
+    }
 })();
