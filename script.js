@@ -153,7 +153,7 @@
             return;
         }
 
-       // console.log("Loaded worksheet:", sheetName);
+        // console.log("Loaded worksheet:", sheetName);
         //if (sheetName) { $('#configure').hide(); }
 
         await loadData();  // 👈 call your data function
@@ -184,19 +184,19 @@
                 const orderedColumns = columnorder.map(name =>
 
                     sumdata.columns.find(c => {
-                    let col = c.fieldName;
-                     if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
-                        col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
-                        col = col.substring(0, col.length - 1)
-                    }
-                    return col.trim()=== name.trim();
+                        let col = c.fieldName;
+                        if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
+                            col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
+                            col = col.substring(0, col.length - 1)
+                        }
+                        return col.trim() === name.trim();
                     })
 
                 ).filter(Boolean);
                 orderedColumns.forEach((_col, index) => {
                     let col = _col._fieldName;
                     let th = document.createElement("th");
-                    
+
                     if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
                         col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
                         col = col.substring(0, col.length - 1)
@@ -223,20 +223,20 @@
                 thead.appendChild(headerRow);
                 const columnIndexes = orderedColumns.map(col =>
                     sumdata.columns.findIndex(c =>
-                     c._fieldName === col._fieldName
+                        c._fieldName === col._fieldName
                     )
                 );
                 // Rows
                 sumdata.data.forEach(row => {
-                    
+
                     let tr = document.createElement("tr");
 
-                     columnIndexes.forEach(i => {
-                        let cell=row[i];
+                    columnIndexes.forEach((i,j) => {
+                        let cell = row[i];
                         let td = document.createElement("td");
-                        
+
                         // detect hyperlink column
-                        if (orderedColumns[i]._fieldName.toLowerCase().includes("link")) {
+                        if (orderedColumns[j]._fieldName.toLowerCase().includes("link")) {
 
                             let a = document.createElement("a");
 
@@ -249,9 +249,15 @@
                             td.dataset.raw = cell.value;        // for sorting
 
                         } else {
-                            if(orderedColumns[i].dataType==='float')
-                            {
-                               td.style.textAlign='right'; 
+                            if (
+                                ['float', 'int', 'real', 'double']
+                                    .includes(
+                                        orderedColumns[j].dataType?.toLowerCase()
+                                    )
+                            ) {
+
+                                td.style.textAlign = 'right';
+
                             }
                             td.innerHTML = cell.formattedValue; // keep tableau formatting
                             td.dataset.raw = cell.value;        // raw for sorting
@@ -261,7 +267,7 @@
                     });
 
                     // Selection action
-                   // tr.onclick = () => selectMarks(row);
+                    // tr.onclick = () => selectMarks(row);
 
                     tbody.appendChild(tr);
 
