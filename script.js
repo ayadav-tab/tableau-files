@@ -174,13 +174,7 @@
 
                     sumdata.columns.find(c => {
                     let col = c.fieldName;
-                   
-                    if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
-                        col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
-                        col = col.substring(0, col.length - 1)
-                    }
-                    return col.trim() === name.trim();
-
+                    return col.trim()=== name.trim();
                     })
 
                 ).filter(Boolean);
@@ -188,6 +182,10 @@
                     let col = _col._fieldName;
                     let th = document.createElement("th");
                     
+                    if (col.includes('AGG(') || col.includes('SUM(') || col.includes('MAX(') || col.includes('MIN(') || col.includes('COUNT(') || col.includes('COUNTD(')) {
+                        col = col.replace('AGG(', '').replace('SUM(', '').replace('MAX(', '').replace('MIN(', '').replace('COUNT(', '').replace('COUNTD(', '');
+                        col = col.substring(0, col.length - 1)
+                    }
                     if (col.includes('cfy⇅')) {
                         const columnsplit = col.split('⇅');
                         //FY⇅cfy⇅-⇅1⇅ Balance
