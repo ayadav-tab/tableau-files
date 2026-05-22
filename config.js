@@ -31,7 +31,7 @@ function saveSettings() {
     let selectedSheet = document.getElementById("sheetDropdown").value;
     let columnorder = document.getElementById("columnorder").value;
     tableau.extensions.settings.set("worksheet", selectedSheet);
-    tableau.extensions.settings.set("columnorder", selectedSheet);
+    tableau.extensions.settings.set("columnorder", columnorder);
     tableau.extensions.settings.saveAsync().then(() => {
         tableau.extensions.ui.closeDialog();
         
