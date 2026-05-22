@@ -18,7 +18,18 @@
             loadSelectedSheet();
             listenToParameters();
             document.getElementById("configure").addEventListener("click", openConfig);
+            if (
+                tableau.extensions.environment.mode ===
+                tableau.ExtensionMode.Authoring
+            ) {
 
+                $('#configure').show();
+
+            } else {
+
+                $('#configure').hide();
+
+            }
             function openConfig() {
                 tableau.extensions.ui.displayDialogAsync(
                     "config.html",

@@ -17,7 +17,14 @@ $(document).ready(function () {
             option.text = ws.name;
             dropdown.appendChild(option);
         });
-
+        if (tableau.extensions.settings.get("columnorder"))
+        {
+            document.getElementById("columnorder").value=tableau.extensions.settings.get("columnorder");
+        }
+        if (tableau.extensions.settings.get("worksheet"))
+        {
+            dropdown.value=tableau.extensions.settings.get("worksheet");
+        }
         console.log("Worksheets:", worksheets.map(w => w.name)); // debug
 
     });
