@@ -249,7 +249,7 @@
                             td.dataset.raw = cell.value;        // for sorting
 
                         } else {
-                            if(orderedColumns[i].dataType='float')
+                            if(orderedColumns[i].dataType==='float')
                             {
                                td.style.textAlign='right'; 
                             }
