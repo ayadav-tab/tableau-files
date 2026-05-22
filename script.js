@@ -153,8 +153,8 @@
             return;
         }
 
-        console.log("Loaded worksheet:", sheetName);
-        if (sheetName) { $('#configure').hide(); }
+       // console.log("Loaded worksheet:", sheetName);
+        //if (sheetName) { $('#configure').hide(); }
 
         await loadData();  // 👈 call your data function
         $("#excelexport").click(function () { exportTableToExcel(sheetName) });
@@ -234,7 +234,7 @@
                      columnIndexes.forEach(i => {
                         let cell=row[i];
                         let td = document.createElement("td");
-
+                        
                         // detect hyperlink column
                         if (orderedColumns[i]._fieldName.toLowerCase().includes("link")) {
 
@@ -249,7 +249,10 @@
                             td.dataset.raw = cell.value;        // for sorting
 
                         } else {
-
+                            if(orderedColumns[i].dataType='float')
+                            {
+                               td.style.textAlign='right'; 
+                            }
                             td.innerHTML = cell.formattedValue; // keep tableau formatting
                             td.dataset.raw = cell.value;        // raw for sorting
                         }
@@ -258,7 +261,7 @@
                     });
 
                     // Selection action
-                    tr.onclick = () => selectMarks(row);
+                   // tr.onclick = () => selectMarks(row);
 
                     tbody.appendChild(tr);
 
