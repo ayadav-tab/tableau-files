@@ -275,7 +275,7 @@
 
 
                 });
-                if(tableau.extensions.settings.get("columnorder")==="Yes")
+                if(tableau.extensions.settings.get("grandtotal")==="Yes")
                 {
                 let totalRow = document.createElement("tr");
                 totalRow.classList.add("grand-total-row");
