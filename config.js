@@ -42,7 +42,7 @@ function saveSettings() {
     let columnorder = document.getElementById("columnorder").value;
     tableau.extensions.settings.set("worksheet", selectedSheet);
     tableau.extensions.settings.set("columnorder", columnorder);
-    tableau.extensions.settings.set("grandtotal", grandtotal);
+    tableau.extensions.settings.set("grandtotal", document.getElementById("grandtotal").value);
     tableau.extensions.settings.saveAsync().then(() => {
         tableau.extensions.ui.closeDialog();
         
