@@ -7,12 +7,14 @@
 </head>
 
 <body>
-    <h3>Select Worksheet</h3>
+    <span>Select Worksheet</span>
 
     <select id="sheetDropdown"></select>
     <br>
-    <input type="text" placeholder="Column Order Comma Seperated" id="columnorder"/>
-    <br><br>
+    <Label>Column Order</Label><input type="text" placeholder="Column Order Comma Seperated" id="columnorder"/>
+    <br>
+    <Label>Grand Total</Label><input type="text" placeholder="Column Order Comma Seperated" id="grandtotal"/>
+    <br>
 
     <button onclick="saveSettings()" id="save">Save</button>
     <label id="lbllog"></label>

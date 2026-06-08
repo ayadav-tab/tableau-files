@@ -193,6 +193,7 @@
                     })
 
                 ).filter(Boolean);
+
                 orderedColumns.forEach((_col, index) => {
                     let col = _col._fieldName;
                     let th = document.createElement("th");
@@ -227,11 +228,12 @@
                     )
                 );
                 // Rows
+                let totals = new Array(columnIndexes.length).fill(0);
                 sumdata.data.forEach(row => {
 
                     let tr = document.createElement("tr");
 
-                    columnIndexes.forEach((i,j) => {
+                    columnIndexes.forEach((i, j) => {
                         let cell = row[i];
                         let td = document.createElement("td");
 
@@ -257,7 +259,7 @@
                             ) {
 
                                 td.style.textAlign = 'right';
-
+                                totals[i] += cell.value;
                             }
                             td.innerHTML = cell.formattedValue; // keep tableau formatting
                             td.dataset.raw = cell.value;        // raw for sorting
@@ -271,9 +273,37 @@
 
                     tbody.appendChild(tr);
 
+
+                });
+                if(tableau.extensions.settings.get("columnorder")==="Yes")
+                {
+                let totalRow = document.createElement("tr");
+                totalRow.classList.add("grand-total-row");
+
+                columnIndexes.forEach((originalIndex, i) => {
+
+                    let td = document.createElement("td");
+
+                    if (i === 0) {
+
+                        td.textContent = "Grand Total";
+
+                    } else if (
+                        orderedColumns[i].fieldName.startsWith("SUM(")
+                    ) {
+
+                        td.textContent = totals[i].toLocaleString();
+
+                    }
+
+                    totalRow.appendChild(td);
+
                 });
 
+                tbody.appendChild(totalRow);
+            }
             });
+        
             await new Promise(resolve =>
                 requestAnimationFrame(resolve)
             );
@@ -285,7 +315,7 @@
         finally {
             setTimeout(function () {
                 document.getElementById("loader").style.display = "none";
-            }, 5000)
+            }, 500)
 
 
 

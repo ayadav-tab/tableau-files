@@ -24,6 +24,9 @@ $(document).ready(function () {
         if (tableau.extensions.settings.get("worksheet"))
         {
             dropdown.value=tableau.extensions.settings.get("worksheet");
+        } if (tableau.extensions.settings.get("grandtotal"))
+        {
+           document.getElementById("grandtotal").value=tableau.extensions.settings.get("grandtotal");
         }
         console.log("Worksheets:", worksheets.map(w => w.name)); // debug
 
@@ -39,6 +42,7 @@ function saveSettings() {
     let columnorder = document.getElementById("columnorder").value;
     tableau.extensions.settings.set("worksheet", selectedSheet);
     tableau.extensions.settings.set("columnorder", columnorder);
+    tableau.extensions.settings.set("columnorder", grandtotal);
     tableau.extensions.settings.saveAsync().then(() => {
         tableau.extensions.ui.closeDialog();
         
