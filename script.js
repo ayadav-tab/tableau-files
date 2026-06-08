@@ -283,7 +283,7 @@
                 columnIndexes.forEach((originalIndex, i) => {
 
                     let td = document.createElement("td");
-
+                    td.style.textAlign = "left";
                     if (i === 0) {
 
                         td.textContent = "Grand Total";
@@ -292,7 +292,7 @@
                         orderedColumns[i].fieldName.startsWith("SUM(")
                     ) {
 
-                        td.textContent = totals[i].toLocaleString();
+                        td.textContent ='$'+ totals[i].toLocaleString();
 
                     }
 
