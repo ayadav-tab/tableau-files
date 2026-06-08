@@ -283,10 +283,11 @@
                 columnIndexes.forEach((originalIndex, i) => {
 
                     let td = document.createElement("td");
-                    td.style.textAlign = "left";
+                   
                     if (i === 0) {
 
                         td.textContent = "Grand Total";
+                        td.style.textAlign = "left";
 
                     } else if (
                         orderedColumns[i].fieldName.startsWith("SUM(")
