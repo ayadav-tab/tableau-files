@@ -328,7 +328,7 @@
                                 td.style.textAlign = 'right';
                                 totals[i] += cell.value;
                             }
-                            td.innerHTML = cell.formattedValue; // keep tableau formatting
+                            td.innerHTML = cell.formattedValue==='Null'?'':cell.formattedValue; // keep tableau formatting
                             td.dataset.raw = cell.value;        // raw for sorting
                         }
 
