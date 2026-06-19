@@ -63,6 +63,72 @@
 
 
     });
+
+    function exportTableToCSV(fileName) {
+
+    const rows = [];
+
+    // Headers
+    const headers = [];
+
+    document.querySelectorAll("#dataTable thead th").forEach(th => {
+
+        let headerText = "";
+
+        th.childNodes.forEach(node => {
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                headerText += node.textContent;
+            }
+
+        });
+
+        headers.push('"' + headerText.trim() + '"');
+
+    });
+
+    rows.push(headers.join(","));
+
+    // Data rows
+    document.querySelectorAll("#dataTable tbody tr").forEach(tr => {
+
+        const row = [];
+
+        tr.querySelectorAll("td").forEach(td => {
+
+            let value = td.innerText.trim();
+
+            // Escape quotes
+            value = value.replace(/"/g, '""');
+
+            row.push('"' + value + '"');
+
+        });
+
+        rows.push(row.join(","));
+
+    });
+
+    const csvContent = rows.join("\n");
+
+    const blob = new Blob(
+        [csvContent],
+        { type: "text/csv;charset=utf-8;" }
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = fileName;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+}
     function exportTableToExcel(sheetname) {
 
         let data = [];
@@ -158,6 +224,7 @@
 
         await loadData();  // 👈 call your data function
         $("#excelexport").click(function () { exportTableToExcel(sheetName) });
+         $("#csvexport").click(function () { exportTableToCSV(sheetName) });
 
     }
 
