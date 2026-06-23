@@ -99,6 +99,13 @@
             let value = td.innerText.trim();
 
             // Escape quotes
+            let link = td.querySelector("a");
+
+            if (link) {
+
+                value = link.href;
+
+            } 
             value = value.replace(/"/g, '""');
 
             row.push('"' + value + '"');
