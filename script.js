@@ -112,7 +112,7 @@
     const csvContent = rows.join("\n");
 
     const blob = new Blob(
-        [csvContent],
+        ["\uFEFF" +csvContent],
         { type: "text/csv;charset=utf-8;" }
     );
 
