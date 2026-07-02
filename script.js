@@ -5,7 +5,7 @@
     let today = new Date();
 
     let cfy =
-        (today.getMonth() + 1) <= 7
+        (today.getMonth() + 1) < 7
             ? today.getFullYear()
             : today.getFullYear() + 1;
 
