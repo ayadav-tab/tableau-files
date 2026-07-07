@@ -374,8 +374,11 @@
                     totalRow.appendChild(td);
 
                 });
+                const tfoot = table.querySelector("tfoot");
+                tfoot.innerHTML = "";
+                tfoot.appendChild(totalRow);
 
-                tbody.appendChild(totalRow);
+                //tbody.appendChild(tfoot);
             }
             });
         
