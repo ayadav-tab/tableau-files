@@ -405,7 +405,9 @@
     function sortTable(columnIndex) {
 
         const table = document.getElementById("dataTable");
-        const rows = Array.from(table.rows).slice(1);
+        const tbody = table.tBodies[0];
+        const rows = Array.from(tbody.rows);
+        //const rows = Array.from(table.rows).slice(1);
 
         // toggle direction
         if (currentSortCol === columnIndex) {
