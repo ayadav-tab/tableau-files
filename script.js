@@ -364,7 +364,7 @@
                         td.style.textAlign = "left";
 
                     } else if (
-                        orderedColumns[i].fieldName.startsWith("SUM(")
+                        orderedColumns[i].fieldName.startsWith("SUM(") || orderedColumns[i].fieldName.startsWith("AGG(")
                     ) {
 
                         td.textContent ='$'+ totals[i].toLocaleString();
