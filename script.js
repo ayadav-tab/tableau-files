@@ -374,7 +374,7 @@
                     totalRow.appendChild(td);
 
                 });
-                const tfoot = table.querySelector("tfoot");
+                let tfoot = table.querySelector("tfoot");
                 tfoot.innerHTML = "";
                 tfoot.appendChild(totalRow);
 
